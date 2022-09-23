@@ -1,4 +1,4 @@
-interface Pokemon {
+export interface Pokemon {
   name?: string | null;
   url?: string | null;
 }
@@ -74,7 +74,7 @@ export type PokemonState = {
   pokemons: Pokemon[];
   currentPokemon: PokemonDetails;
   loading: boolean;
-  error: string | null;
+  error: string | any;
 };
 
 export enum pokemonActions {

@@ -1,17 +1,17 @@
-import { useAppDispatch } from "hooks/typedHooks";
-import { useEffect } from "react";
-import { getPokemons, getCurrentPokemon } from "store/entities/pokemons/actions";
+import { Layout } from "components";
+import { Details, Home } from "screens";
+import { Route, Routes, Navigate } from "react-router";
 
 function App() {
-  const dispatch = useAppDispatch();
-
-  useEffect(() => {
-    dispatch(getPokemons());
-  }, [dispatch]);
-
   return (
     <div className="App">
-      <p>Hello World</p>
+      <Routes>
+        <Route path="/" element={<Layout />}>
+          <Route index element={<Home />} />
+          <Route path="details/:name" element={<Details />} />
+          <Route path="*" element={<Navigate to="/" />} />
+        </Route>
+      </Routes>
     </div>
   );
 }

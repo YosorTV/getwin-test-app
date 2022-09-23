@@ -2,12 +2,12 @@ import { createSlice } from "@reduxjs/toolkit";
 import { getPokemons, getCurrentPokemon } from "./actions";
 import { PokemonState } from "./types";
 
-const initialState: PokemonState = {
+const initialState = {
   pokemons: [],
   currentPokemon: {},
   loading: false,
   error: "",
-};
+} as PokemonState;
 
 const pokemonSlice = createSlice({
   name: "pokemons",

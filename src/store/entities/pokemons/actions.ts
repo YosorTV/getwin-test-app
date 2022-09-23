@@ -2,10 +2,10 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import { getAllPokemonsData, getCurrentPokemonData } from "./service";
 import { pokemonActions, PokemonDetails, PokemonResponse } from "./types";
 
-export const getPokemons = createAsyncThunk<PokemonResponse, undefined, { rejectValue: string }>(
+export const getPokemons = createAsyncThunk<PokemonResponse, number, { rejectValue: string }>(
   pokemonActions.getPokemons,
-  async (_, { rejectWithValue }) => {
-    const { data } = await getAllPokemonsData("pokemon?limit=10&offset=0", rejectWithValue);
+  async (page, { rejectWithValue }) => {
+    const { data } = await getAllPokemonsData(page, rejectWithValue);
     return data;
   }
 );
