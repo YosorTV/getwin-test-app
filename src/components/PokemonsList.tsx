@@ -1,23 +1,31 @@
+import { Paper, Typography } from "@mui/material";
 import { FC, useMemo, memo } from "react";
+import { NavLink } from "react-router-dom";
 import { Pokemon } from "store/entities/pokemons/types";
 
 type ListProps = {
-  children?: React.ReactNode;
-  pokemons: Pokemon[];
+  pokemons?: Pokemon[];
+  className?: string;
 };
 
-export const PokemonsList: FC<ListProps> = memo(({ pokemons }) => {
+export const PokemonsList: FC<ListProps> = memo(({ pokemons = [], className }) => {
   const pokemonsList = useMemo(() => {
     return (
       <>
         {pokemons?.map(item => (
           <li key={item?.name}>
-            <a>{item?.name}</a>
+            <Typography component={NavLink} variant="body1" to={`details/${item?.name}`}>
+              {item?.name}
+            </Typography>
           </li>
         ))}
       </>
     );
   }, [pokemons]);
 
-  return <ul>{pokemonsList}</ul>;
+  return (
+    <Paper component="ul" variant="outlined" square className={className}>
+      {pokemonsList}
+    </Paper>
+  );
 });

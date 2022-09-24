@@ -1,0 +1,23 @@
+.list {
+  columns: 4 200px;
+  margin: 2rem;
+  padding: 1rem;
+  min-height: 100px;
+  li {
+    text-transform: capitalize;
+    a {
+      transition: 0.2s all linear;
+      &:hover {
+        color: #1b8bb3;
+      }
+    }
+  }
+}
+
+.btn-wrapper {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+}
