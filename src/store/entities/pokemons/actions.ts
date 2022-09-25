@@ -23,11 +23,6 @@ export const getCurrentPokemon = createAsyncThunk<PokemonDetails, string>(
   }
 );
 
-type resultProps = {
-  result: Pokemon[];
-  status: number;
-};
-
 export const getPokemonByName = createAsyncThunk<Pokemon[], string>(
   pokemonActions.getPokemonByName,
   async (name, { rejectWithValue }): Promise<any> => {
