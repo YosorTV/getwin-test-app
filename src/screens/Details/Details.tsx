@@ -3,23 +3,23 @@ import { useParams } from "react-router";
 import { Typography, Divider, Paper } from "@mui/material";
 
 import { getCurrentPokemon, clearState, PokemonDetails } from "store/entities";
-import { currentPokemon } from "store/selectors";
 
 import { useAppDispatch, useAppSelector } from "hooks/typedHooks";
 
 import styles from "./styles.module.scss";
+import { pokemonSelector } from "store/selectors";
 
 export const Details: FC = () => {
   const dispatch = useAppDispatch();
-  const pokemon = useAppSelector<PokemonDetails>(currentPokemon);
+  const { currentPokemon } = useAppSelector<PokemonDetails>(pokemonSelector);
   const { name } = useParams();
 
-  useEffect(() => {
+  useEffect((): any => {
     if (name) dispatch(getCurrentPokemon(name));
     return () => dispatch(clearState());
   }, [name]);
 
-  const renderStatsJSX = pokemon?.stats?.map(el => (
+  const renderStatsJSX = currentPokemon?.stats?.map((el: any) => (
     <Fragment key={el?.stat?.name}>
       <Typography component="p" variant="body1">
         {el?.stat?.name}: <span>{el?.base_stat}%.</span>
@@ -27,7 +27,7 @@ export const Details: FC = () => {
     </Fragment>
   ));
 
-  const renderMovesJSX = pokemon?.moves?.map(el => (
+  const renderMovesJSX = currentPokemon?.moves?.map((el: any) => (
     <Fragment key={el?.move?.name}>
       <Typography
         component="p"
@@ -42,21 +42,22 @@ export const Details: FC = () => {
   return (
     <section className={styles.details}>
       <Typography component="h3" variant="h6">
-        Here you can find detailed information about: <span>{pokemon?.name} pokemon.</span>
+        Here you can find detailed information about:{" "}
+        <span>{currentPokemon?.name} currentPokemon.</span>
       </Typography>
       <div className={styles["details-groups"]}>
         <Paper className={styles["details-groups__group"]}>
           <div className={styles["details-groups__group-header"]}>
-            <img src={pokemon?.sprites?.front_default ?? ""} alt="image" />
-            <Typography component="h6">{pokemon?.name}</Typography>
+            <img src={currentPokemon?.sprites?.front_default ?? ""} alt="image" />
+            <Typography component="h6">{currentPokemon?.name}</Typography>
           </div>
           <Divider />
           <div className={styles["details-groups__group-basic"]}>
             <Typography component="p" variant="body1">
-              Weight: <span>{pokemon?.weight}lbs.</span>
+              Weight: <span>{currentPokemon?.weight}lbs.</span>
             </Typography>
             <Typography className="" component="p" variant="body1">
-              Height: <span>{pokemon?.height}cm.</span>
+              Height: <span>{currentPokemon?.height}cm.</span>
             </Typography>
           </div>
           <Divider />

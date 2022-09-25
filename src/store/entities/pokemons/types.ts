@@ -76,7 +76,7 @@ export interface PokemonDetails extends Pokemon {
   stats?: PokemonStats[];
   types?: PokemonTypes[];
   sprites?: PokemonSprites;
-  pokemon?: any[];
+  pokemon?: Pokemon[];
 }
 
 export type PokemonResponse = {

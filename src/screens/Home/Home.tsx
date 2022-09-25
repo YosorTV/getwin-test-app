@@ -9,7 +9,7 @@ import {
   getFilteredPokemon,
   getPokemonByName,
 } from "store/entities";
-import { allPokemons } from "store/selectors";
+import { pokemonSelector } from "store/selectors";
 
 import useDebounce from "hooks";
 import { useAppDispatch, useAppSelector } from "hooks/typedHooks";
@@ -21,7 +21,7 @@ import styles from "./styles.module.scss";
 export const Home = () => {
   const dispatch = useAppDispatch();
 
-  const { pokemons, loading, error } = useAppSelector<PokemonState>(allPokemons);
+  const { pokemons, loading, error } = useAppSelector<PokemonState>(pokemonSelector);
 
   const [value, setValue] = useState<string>("");
   const [page, setPage] = useState<number>(0);
@@ -65,7 +65,7 @@ export const Home = () => {
     },
   };
 
-  useEffect(() => {
+  useEffect((): any => {
     dispatch(getPokemons(page));
     return () => dispatch(clearState());
   }, [page]);
