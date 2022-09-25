@@ -9,7 +9,7 @@ import { Pokemon, pokemonActions, PokemonDetails, PokemonResponse } from "./type
 
 export const getPokemons = createAsyncThunk<PokemonResponse, number>(
   pokemonActions.getPokemons,
-  async (page, { rejectWithValue }) => {
+  async (page, { rejectWithValue }): Promise<any> => {
     const { data } = await getAllPokemonsData(page, rejectWithValue);
     return data;
   }
@@ -17,17 +17,21 @@ export const getPokemons = createAsyncThunk<PokemonResponse, number>(
 
 export const getCurrentPokemon = createAsyncThunk<PokemonDetails, string>(
   pokemonActions.getCurrentPokemon,
-  async (name, { rejectWithValue }) => {
+  async (name, { rejectWithValue }): Promise<any> => {
     const { data } = await getCurrentPokemonData(name, rejectWithValue);
     return data;
   }
 );
 
+type resultProps = {
+  result: Pokemon[];
+  status: number;
+};
+
 export const getPokemonByName = createAsyncThunk<Pokemon[], string>(
   pokemonActions.getPokemonByName,
   async (name, { rejectWithValue }): Promise<any> => {
     const { data, status } = await getPokemonDataByName(name, rejectWithValue);
-
     const result = [{ name: data?.name, url: "" }];
     return { result, status };
   }
@@ -35,7 +39,7 @@ export const getPokemonByName = createAsyncThunk<Pokemon[], string>(
 
 export const getFilteredPokemon = createAsyncThunk<PokemonDetails, string>(
   pokemonActions.getFilteredPokemon,
-  async (type, { rejectWithValue }) => {
+  async (type, { rejectWithValue }): Promise<any> => {
     const { data } = await getFilteredPokemonData(type, rejectWithValue);
 
     const result = data?.pokemon?.map((item: Pokemon) => ({

@@ -45,8 +45,8 @@ const pokemonSlice = createSlice({
         state.loading = true;
         state.error = null;
       })
-      .addCase(getPokemonByName.fulfilled, (state, { payload }) => {
-        state.pokemons = [...payload];
+      .addCase(getPokemonByName.fulfilled, (state, { payload }: any) => {
+        state.pokemons = [...payload.result];
         state.loading = false;
       })
       .addCase(getPokemonByName.rejected, state => {
