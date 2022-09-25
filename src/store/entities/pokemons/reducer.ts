@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { getPokemons, getCurrentPokemon } from "./actions";
+import { getPokemons, getCurrentPokemon, getFilteredPokemon, getPokemonByName } from "./actions";
 import { PokemonState } from "./types";
 
 const initialState = {
@@ -25,6 +25,14 @@ const pokemonSlice = createSlice({
         state.pokemons = [...payload?.results];
         state.loading = false;
       })
+      .addCase(getFilteredPokemon.pending, state => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(getFilteredPokemon.fulfilled, (state, { payload }: any) => {
+        state.pokemons = [...payload];
+        state.loading = false;
+      })
       .addCase(getCurrentPokemon.pending, state => {
         state.loading = true;
         state.error = null;
@@ -32,6 +40,19 @@ const pokemonSlice = createSlice({
       .addCase(getCurrentPokemon.fulfilled, (state, { payload }) => {
         state.currentPokemon = payload;
         state.loading = false;
+      })
+      .addCase(getPokemonByName.pending, state => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(getPokemonByName.fulfilled, (state, { payload }) => {
+        state.pokemons = [...payload];
+        state.loading = false;
+      })
+      .addCase(getPokemonByName.rejected, state => {
+        state.loading = false;
+        state.pokemons = [];
+        state.error = "Not Found";
       });
   },
 });

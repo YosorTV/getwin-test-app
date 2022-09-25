@@ -2,6 +2,8 @@ import { Layout } from "components";
 import { Details, Home } from "screens";
 import { Route, Routes, Navigate } from "react-router";
 
+import "styles/App.css";
+
 function App() {
   return (
     <div className="App">
